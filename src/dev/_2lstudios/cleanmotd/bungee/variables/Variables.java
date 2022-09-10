@@ -119,7 +119,7 @@ public class Variables {
 		pinged.clear();
 	}
 
-	private String translateColourCodes(String string) {
+	public static String translateColourCodes(String string) {
 		Pattern pattern = Pattern.compile("#[A-Fa-f0-9]{6}");
 		Matcher matcher = pattern.matcher(string);
 		String output = ChatColor.translateAlternateColorCodes('&', string);

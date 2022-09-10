@@ -47,7 +47,9 @@ public class ProxyPingListener implements Listener {
 		}
 
 		if (variables.isMotdEnabled()) {
-			response.setDescriptionComponent(new TextComponent(variables.getMOTD(maxPlayers, onlinePlayers)));
+			ComponentBuilder builder = new ComponentBuilder(Variables.translateColourCodes(variables.getMOTD(maxPlayers, onlinePlayers)));
+			response.setDescriptionComponent(builder.getCurrentComponent());
+			//response.setDescriptionComponent(new TextComponent(variables.getMOTD(maxPlayers, onlinePlayers)));
 		}
 
 		if (variables.isProtocolEnabled()) {
