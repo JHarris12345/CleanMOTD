@@ -127,6 +127,7 @@ public class Variables {
 		while (matcher.find()) {
 			String color = string.substring(matcher.start(), matcher.end());
 			output = output.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
+
 		}
 
 		return output;
