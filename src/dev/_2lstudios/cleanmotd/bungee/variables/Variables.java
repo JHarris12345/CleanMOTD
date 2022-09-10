@@ -2,6 +2,8 @@ package dev._2lstudios.cleanmotd.bungee.variables;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dev._2lstudios.cleanmotd.bungee.utils.ConfigurationUtil;
 import net.md_5.bungee.api.ChatColor;
@@ -52,9 +54,8 @@ public class Variables {
 
 		final int randomIndex = (int) (Math.floor(Math.random() * motds.length));
 
-		return ChatColor.translateAlternateColorCodes('&',
-				motds[randomIndex].replace("%maxplayers%", String.valueOf(maxPlayers)).replace("%onlineplayers%",
-						String.valueOf(onlinePlayers)));
+		return translateColourCodes(motds[randomIndex].replace("%maxplayers%", String.valueOf(maxPlayers))
+				.replace("%onlineplayers%", String.valueOf(onlinePlayers)));
 	}
 
 	public boolean isSampleEnabled() {
@@ -116,5 +117,18 @@ public class Variables {
 
 	public void clearPinged() {
 		pinged.clear();
+	}
+
+	private String translateColourCodes(String string) {
+		Pattern pattern = Pattern.compile("#[A-Fa-f0-9]{6}");
+		Matcher matcher = pattern.matcher(string);
+		String output = ChatColor.translateAlternateColorCodes('&', string);
+
+		while (matcher.find()) {
+			String color = string.substring(matcher.start(), matcher.end());
+			output = output.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
+		}
+
+		return output;
 	}
 }
